@@ -1,3 +1,3 @@
-public class IdentityFilter implements ScalarFilter {
+public class IdentityFilter implements Filter<Double> {
 	
 }

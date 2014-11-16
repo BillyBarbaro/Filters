@@ -1,3 +1,3 @@
-public class AverageFilter implements ScalarFilter {
+public class AverageFilter implements Filter<Double> {
 	
 }

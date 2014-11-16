@@ -1,3 +1,3 @@
-public abstract class ExtremeFilter implements ScalarFilter {
+public abstract class ExtremeFilter implements Filter<Double> {
 	
 }

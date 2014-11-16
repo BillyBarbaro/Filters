@@ -1,3 +1,3 @@
-public abstract class NScalarFilter implements ScalarFilter {
+public abstract class NScalarFilter implements Filter<Double> {
 	
 }
