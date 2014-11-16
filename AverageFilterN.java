@@ -13,6 +13,6 @@ public class AverageFilterN extends NScalarFilter {
 		for (Double d : super.getInputHistory()) {
 			runningTotal += d;
 		}
-		return runningTotal / super.getInputHistory().size();
+		return runningTotal / super.getCurrentSize();
 	}	
 }

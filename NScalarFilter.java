@@ -16,6 +16,8 @@ public abstract class NScalarFilter extends ScalarFilter {
 
 	private void addData(Double data) {
 		inputs.set(this.getWriteIndex(), data);
+		if (currentSize < inputs.size())
+			currentSize++;
 		this.incrementWriteIndex();
 	}
 
@@ -44,7 +46,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 		writeIndex = (writeIndex++) % inputs.size();
 	}
 
-	private int getCurrentSize() {
+	protected int getCurrentSize() {
 		return currentSize;
 	} 
 }
