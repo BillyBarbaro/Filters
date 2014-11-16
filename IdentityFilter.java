@@ -1,4 +1,4 @@
-public class IdentityFilter implements Filter<Double> {
+public class IdentityFilter extends ScalarFilter {
 	
 	public IdentityFilter() {
 		super();

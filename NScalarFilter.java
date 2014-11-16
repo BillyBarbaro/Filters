@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class NScalarFilter implements Filter<Double> {
+public abstract class NScalarFilter extends ScalarFilter {
 	
 	private ArrayList<Double> inputs;
 	private int writeIndex;

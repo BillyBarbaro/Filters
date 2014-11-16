@@ -1,4 +1,4 @@
-public class AverageFilter implements Filter<Double> {
+public class AverageFilter extends ScalarFilter {
 	
 	private int currentInputCount;
 	private Double output;
