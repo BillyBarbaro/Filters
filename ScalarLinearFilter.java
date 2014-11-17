@@ -2,44 +2,46 @@ import java.util.ArrayList;
 
 public class ScalarLinearFilter implements Filter<Double> {
 	
-	private ArrayList<Double> aParams;
-	private ArrayList<Double> bParams;
-	private ArrayList<Double> inputHistory;
-	private ArrayList<Double> outputHistory;
+	private Double[] aParams;
+	private Double[] bParams;
+	private Double[] inputHistory;
+	private Double[] outputHistory;
 	private int inputWriteIndex;
 	private int outputWriteIndex;
 
-	public ScalarLinearFilter(ArrayList<Double> aParams, ArrayList<Double> bParams) {
+	public ScalarLinearFilter(Double[] aParams, Double[] bParams) {
 		this.aParams = aParams;
 		this.bParams = bParams;
-		this.inputHistory = new ArrayList<Double>(bParams.size());
-		this.outputHistory = new ArrayList<Double>(aParams.size());
+		this.inputHistory = new Double[bParams.length];
+		this.outputHistory = new Double[aParams.length];
 	}
 
 	private void incrementInputWrite() {
-		inputWriteIndex = (inputWriteIndex++) % inputHistory.size();
+		inputWriteIndex = (++inputWriteIndex) % inputHistory.length;
 	}
 
 	private void incrementOutputWrite() {
-		outputWriteIndex = (outputWriteIndex++) % inputHistory.size();
+		outputWriteIndex = (++outputWriteIndex) % outputHistory.length;
 	}
 
 	public Double filter(Double data) {
-		inputHistory.set(inputWriteIndex, data);
+		inputHistory[inputWriteIndex] = data;
 		incrementInputWrite();
 
 		Double newOutput = 0.0;
-		for (int i = 0; i < inputHistory.size(); i++) {
-			int currentIndex = (inputWriteIndex + i) % inputHistory.size();
-			newOutput += bParams.get(currentIndex) * inputHistory.get(currentIndex);
+		for (int i = 0; i < inputHistory.length; i++) {
+			int currentIndex = (inputWriteIndex + i) % inputHistory.length;
+			if (inputHistory[currentIndex] != null)
+				newOutput += bParams[currentIndex] * inputHistory[currentIndex];
 		}
 
-		for (int i = 0; i < outputHistory.size(); i++) {
-			int currentIndex = (outputWriteIndex + i) % outputHistory.size();
-			newOutput -= aParams.get(currentIndex) * outputHistory.get(currentIndex);
+		for (int i = 0; i < outputHistory.length; i++) {
+			int currentIndex = (outputWriteIndex + i) % outputHistory.length;
+			if (outputHistory[currentIndex] != null)
+				newOutput -= aParams[currentIndex] * outputHistory[currentIndex];
 		}
 
-		outputHistory.set(outputWriteIndex, newOutput);
+		outputHistory[outputWriteIndex] = newOutput;
 		incrementOutputWrite();
 
 		return newOutput;
@@ -47,13 +49,13 @@ public class ScalarLinearFilter implements Filter<Double> {
 
 	private Double calculateOutputReset(Double resetValue) {
 		Double bSum = 0.0;
-		for (int i = 0; i < bParams.size(); i++) {
-			bSum += bParams.get(i);
+		for (int i = 0; i < bParams.length; i++) {
+			bSum += bParams[i];
 		}
 
 		Double aSum = 0.0;
-		for (int i = 0; i < aParams.size(); i++) {
-			aSum += aParams.get(i);
+		for (int i = 0; i < aParams.length; i++) {
+			aSum += aParams[i];
 		}
 
 		return aSum == -1 ? 0 : resetValue * (bSum / (aSum + 1));
@@ -61,12 +63,12 @@ public class ScalarLinearFilter implements Filter<Double> {
 
 	public void reset(Double resetValue) {
 
-		for (int i = 0; i < inputHistory.size(); i++)
-			inputHistory.set(i, resetValue);
+		for (int i = 0; i < inputHistory.length; i++)
+			inputHistory[i] = resetValue;
 
 		Double outputResetValue = calculateOutputReset(resetValue);
 
-		for (int i = 0; i < outputHistory.size(); i++)
-			outputHistory.set(i, outputResetValue);
+		for (int i = 0; i < outputHistory.length; i++)
+			outputHistory[i] = outputResetValue;
 	}
 }
