@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.Arrays;
 
 public class MaxFilterN extends NScalarFilter {
 
@@ -7,6 +8,12 @@ public class MaxFilterN extends NScalarFilter {
 	}
 	
 	protected Double calculateFilterValue() {
-		return Collections.max(super.getInputHistory());
+		Double[] history = super.getInputHistory();
+		Double max = history[0];
+		for (int i = 1; i < history.length; i++) {
+			if (history[i] != null)
+				max = (max > history[i]) ? max : history[i];
+		}
+		return max;
 	}
 }

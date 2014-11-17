@@ -1,22 +1,20 @@
-import java.util.ArrayList;
-
 public abstract class NScalarFilter extends ScalarFilter {
 	
-	private ArrayList<Double> inputs;
+	private Double[] inputs;
 	private int writeIndex;
 	private int currentSize;
 
 	public NScalarFilter(int N) {
-		if (N < 0)
-			N = 0;
-		inputs = new ArrayList<Double>(N);
+		if (N < 1)
+			N = 1;
+		inputs = new Double[N];
 		writeIndex = 0;
 		currentSize = 0;
 	}
 
 	private void addData(Double data) {
-		inputs.set(this.getWriteIndex(), data);
-		if (currentSize < inputs.size())
+		inputs[getWriteIndex()] = data;
+		if (currentSize < inputs.length)
 			currentSize++;
 		this.incrementWriteIndex();
 	}
@@ -29,12 +27,13 @@ public abstract class NScalarFilter extends ScalarFilter {
 	}
 
 	public void reset(Double resetValue) {
-		inputs = new ArrayList<Double>(inputs.size());
-		writeIndex = 0;
-		currentSize = 0;
+		inputs = new Double[inputs.length];
+		inputs[0] = resetValue;
+		writeIndex = 1;
+		currentSize = 1;
 	}
 
-	protected ArrayList<Double> getInputHistory() {
+	protected Double[] getInputHistory() {
 		return inputs;
 	}
 
@@ -43,7 +42,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	}
 
 	private void incrementWriteIndex() {
-		writeIndex = (writeIndex++) % inputs.size();
+		writeIndex = (++writeIndex) % inputs.length;
 	}
 
 	protected int getCurrentSize() {

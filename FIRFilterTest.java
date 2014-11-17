@@ -6,4 +6,13 @@ import org.junit.rules.ExpectedException;
 
 public class FIRFilterTest {
 	
+	@Test
+	public void testFilter() {
+		
+	}
+
+	@Test
+	public void testReset() {
+		
+	}
 }

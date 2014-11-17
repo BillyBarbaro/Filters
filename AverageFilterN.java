@@ -7,11 +7,13 @@ public class AverageFilterN extends NScalarFilter {
 	}
 	
 	protected Double calculateFilterValue() {
-		if (super.getInputHistory().size() == 0)
+		if (super.getInputHistory().length == 0)
 			return 0.0;
+		
 		Double runningTotal = 0.0;
 		for (Double d : super.getInputHistory()) {
-			runningTotal += d;
+			if (d != null)
+				runningTotal += d;
 		}
 		return runningTotal / super.getCurrentSize();
 	}	

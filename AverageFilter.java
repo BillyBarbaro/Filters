@@ -4,7 +4,7 @@ public class AverageFilter extends ScalarFilter {
 	private Double output;
 
 	public AverageFilter() {
-		super();
+		output = new Double(0.0);
 	}
 
 	public Double filter(Double data) {
