@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class FIRFilter extends ScalarLinearFilter {
 	
-	public FIRFilter(ArrayList<Double> bParams) {
-		super(new ArrayList<Double>(), bParams);
+	public FIRFilter(Double[] bParams) {
+		super(new Double[0], bParams);
 	}
 }

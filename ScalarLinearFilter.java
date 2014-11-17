@@ -24,9 +24,12 @@ public class ScalarLinearFilter implements Filter<Double> {
 		outputWriteIndex = (++outputWriteIndex) % outputHistory.length;
 	}
 
+	// COMPLEXITY
 	public Double filter(Double data) {
-		inputHistory[inputWriteIndex] = data;
-		incrementInputWrite();
+		if (inputHistory.length > 0) {
+			inputHistory[inputWriteIndex] = data;
+			incrementInputWrite();
+		}
 
 		Double newOutput = 0.0;
 		for (int i = 0; i < inputHistory.length; i++) {
@@ -41,8 +44,10 @@ public class ScalarLinearFilter implements Filter<Double> {
 				newOutput -= aParams[currentIndex] * outputHistory[currentIndex];
 		}
 
-		outputHistory[outputWriteIndex] = newOutput;
-		incrementOutputWrite();
+		if (outputHistory.length > 0) {	
+			outputHistory[outputWriteIndex] = newOutput;
+			incrementOutputWrite();
+		}
 
 		return newOutput;
 	}

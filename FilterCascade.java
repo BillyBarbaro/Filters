@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class FilterCascade implements Filter<Double> {
 
-	public ArrayList<Filter<Double>> filters;
+	public ArrayList<Filter> filters;
 
-	public FilterCascade(ArrayList<Filter<Double>> filters) {
+	public FilterCascade(ArrayList<Filter> filters) {
 		this.filters = filters;
 	}
 

@@ -1,7 +1,6 @@
 public class Combinations {
 	
-	public static Double nChoosei(int N, int k) {
-
+	public static Double nChoosek(int N, int k) {
 		if (k < 0)
 			return 0.0;
 
@@ -10,7 +9,7 @@ public class Combinations {
 			return 0.0;
 
 		int numerator = 1;
-		for (int i = 0; i  < numberNeeded; i++) {
+		for (int i = 0; i  < k; i++) {
 			numerator *= N - i;
 		}
 
