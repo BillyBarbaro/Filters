@@ -40,6 +40,11 @@ public class FilterCascade implements Filter<Double> {
 	  * @param resetValue	the resetvalue for the filter
 	  */
 	public void resetFilterAtIndex(int index, Double resetValue) {
+		// Watch the indicies
+		if (index < 0)
+			index = 0;
+		if (index >= filters.size())
+			index = filters.size() - 1;
 		filters.get(index).reset(resetValue);
 	}
 }

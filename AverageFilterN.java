@@ -21,6 +21,7 @@ public class AverageFilterN extends NScalarFilter {
 			if (d != null)
 				runningTotal += d;
 		}
+		assert(super.getCurrentSize() != 0);
 		// Divides them out to give the average
 		return runningTotal / super.getCurrentSize();
 	}	

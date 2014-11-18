@@ -21,6 +21,7 @@ public class AverageFilter extends ScalarFilter {
 	public Double filter(Double data) {
 		currentInputCount++;
 		// Formula to calculate new average
+		assert(currentInputCount != 0);
 		output = ((output * (currentInputCount - 1)) + data) / currentInputCount;
 		return output;
 	}

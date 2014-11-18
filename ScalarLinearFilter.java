@@ -32,11 +32,13 @@ public class ScalarLinearFilter implements Filter<Double> {
 	/** Increments the input write index with wraparound */
 	private void incrementInputWrite() {
 		inputWriteIndex = (++inputWriteIndex) % inputHistory.length;
+		assert(inputWriteIndex < inputHistory.length);
 	}
 
 	/** Increments the output write index with wraparound */
 	private void incrementOutputWrite() {
 		outputWriteIndex = (++outputWriteIndex) % outputHistory.length;
+		assert(outputWriteIndex < outputHistory.length);
 	}
 
 	/** Performs a write operation for the given input

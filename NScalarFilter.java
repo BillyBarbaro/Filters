@@ -29,6 +29,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 		inputs[getWriteIndex()] = data;
 		if (currentSize < inputs.length)
 			currentSize++;
+		assert(currentSize < inputs.length);
 		this.incrementWriteIndex();
 	}
 
@@ -73,6 +74,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Increments the write index with wraparound */
 	private void incrementWriteIndex() {
 		writeIndex = (++writeIndex) % inputs.length;
+		assert(writeIndex < inputs.length);
 	}
 
 	/** Gets the current number of inputs in the history

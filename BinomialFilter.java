@@ -13,6 +13,8 @@ public class BinomialFilter extends FIRFilter {
 		if (N < 0)
 			N *= -1;
 
+		assert(N <= 0);
+
 		Double[] bParams = new Double[N];
 
 		// Calculate N choose i for each index and save it down
