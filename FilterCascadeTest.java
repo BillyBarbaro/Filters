@@ -9,7 +9,7 @@ public class FilterCascadeTest {
 
 	@Test
 	public void testCascadeFromSpec() {
-		ArrayList<Filter> filters = new ArrayList<Filter>();
+		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
 		filters.add(new MaxFilterN(2));
 		filters.add(new MinFilterN(3));
 		FilterCascade test = new FilterCascade(filters);
@@ -28,7 +28,7 @@ public class FilterCascadeTest {
 
 	@Test
 	public void testCascadeWithScalarLinear() {
-		ArrayList<Filter> filters = new ArrayList<Filter>();
+		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
 		filters.add(new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5}));
 		filters.add(new GainFilter(2.0));
 		FilterCascade test = new FilterCascade(filters);
