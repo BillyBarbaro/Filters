@@ -29,7 +29,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 		inputs[getWriteIndex()] = data;
 		if (currentSize < inputs.length)
 			currentSize++;
-		assert(currentSize < inputs.length);
+		assert(currentSize <= inputs.length);
 		this.incrementWriteIndex();
 	}
 

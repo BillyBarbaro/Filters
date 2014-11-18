@@ -13,7 +13,7 @@ public class BinomialFilter extends FIRFilter {
 		if (N < 0)
 			N *= -1;
 
-		assert(N <= 0);
+		assert(N >= 0);
 
 		Double[] bParams = new Double[N];
 

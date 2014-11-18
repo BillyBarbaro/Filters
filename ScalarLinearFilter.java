@@ -63,7 +63,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 
 	/** Filters the given data
 	  * @param data	the data to be run through the filter
-	  * @param Double	the filtered data
+	  * @return Double	the filtered data
 	  */
 	public Double filter(Double data) {
 
