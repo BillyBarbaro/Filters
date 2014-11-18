@@ -4,6 +4,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+/** Test Bench for Identity Filter
+  * @author Billy Barbaro
+  */
+
 public class IdentityFilterTest {
 	
 	@Test
