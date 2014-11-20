@@ -20,7 +20,7 @@ public class FilterCascade implements Filter<Double> {
 	  * @param data	the data to be filtered
 	  * @return Double	the filtered data
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 		for (Filter<Double> filter : filters) {
 			data = filter.filter(data);
 		}
@@ -30,7 +30,7 @@ public class FilterCascade implements Filter<Double> {
 	/** Resets all filters in the arraylist to the given value
 	  * @param resetValue	the resetvalue for the filter
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 		for (int i = 0; i < filters.size(); i++)
 			resetFilterAtIndex(i, resetValue);
 	}
@@ -39,7 +39,7 @@ public class FilterCascade implements Filter<Double> {
 	  * @param index 	the index of the filter to be reset
 	  * @param resetValue	the resetvalue for the filter
 	  */
-	public void resetFilterAtIndex(int index, Double resetValue) {
+	public final void resetFilterAtIndex(int index, Double resetValue) {
 		// Watch the indicies
 		if (index < 0)
 			index = 0;

@@ -30,13 +30,13 @@ public class ScalarLinearFilter implements Filter<Double> {
 	}
 
 	/** Increments the input write index with wraparound */
-	private void incrementInputWrite() {
+	private final void incrementInputWrite() {
 		inputWriteIndex = (++inputWriteIndex) % inputHistory.length;
 		assert(inputWriteIndex < inputHistory.length);
 	}
 
 	/** Increments the output write index with wraparound */
-	private void incrementOutputWrite() {
+	private final void incrementOutputWrite() {
 		outputWriteIndex = (++outputWriteIndex) % outputHistory.length;
 		assert(outputWriteIndex < outputHistory.length);
 	}
@@ -44,7 +44,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	/** Performs a write operation for the given input
 	  * @param data	the data to be written
 	  */
-	private void writeInput(Double data) {
+	private final void writeInput(Double data) {
 		if (inputHistory.length > 0) {
 			inputHistory[inputWriteIndex] = data;
 			incrementInputWrite();
@@ -54,7 +54,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	/** Performs a write operation for the given output
 	  * @param data	the data to be written
 	  */
-	private void writeOutput(Double data) {
+	private final void writeOutput(Double data) {
 		if (outputHistory.length > 0) {	
 			outputHistory[outputWriteIndex] = data;
 			incrementOutputWrite();
@@ -65,7 +65,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	  * @param data	the data to be run through the filter
 	  * @return Double	the filtered data
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 
 		writeInput(data);
 
@@ -93,7 +93,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	  * @param resetValue 	the value the user chose to reset to
 	  * @return Double 	the value to set the output history to
 	  */
-	private Double calculateOutputReset(Double resetValue) {
+	private final Double calculateOutputReset(Double resetValue) {
 		
 		// Sums the b coefficients
 		Double bSum = 0.0;
@@ -115,7 +115,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	/** Resets the filter
 	  * @param resetValue 	the value to calculate the reset values for the input/output histories
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 
 		// Sets the input history to the resetValue
 		for (int i = 0; i < inputHistory.length; i++)

@@ -18,7 +18,7 @@ public class AverageFilter extends ScalarFilter {
 	  * @param data	The next value fed to the filter
 	  * @return Double	an average of all values input to the filter thus far
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 		currentInputCount++;
 		// Formula to calculate new average
 		assert(currentInputCount != 0);
@@ -29,12 +29,12 @@ public class AverageFilter extends ScalarFilter {
 	/** A reset value is not valid in this case, so all resets are sent to the generic reset method
 	  * @param resetValue	ignored
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 		reset();
 	}
 
 	/** Resets the filter, setting the current number of inputs and current average to 0 */
-	public void reset() {
+	public final void reset() {
 		currentInputCount = 0;
 		output = 0.0;
 	}

@@ -12,7 +12,7 @@ public class AverageFilterN extends NScalarFilter {
 	/** Implementation of calculateFilterValue, takes the min value of the history
 	  * @return Double	the average value in the history of inputs
 	  */
-	protected Double calculateFilterValue() {
+	protected final Double calculateFilterValue() {
 		assert(getInputHistory().length != 0);
 
 		// Keeps the running total of all entries in the list

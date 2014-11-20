@@ -12,7 +12,7 @@ public class MaxFilterN extends NScalarFilter {
 	/** Implementation of calculateFilterValue, takes the max value of the history
 	  * @return Double	the maximum value in the history of inputs
 	  */
-	protected Double calculateFilterValue() {
+	protected final Double calculateFilterValue() {
 		// Gets input history
 		Double[] history = super.getInputHistory();
 

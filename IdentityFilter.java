@@ -13,14 +13,14 @@ public class IdentityFilter extends ScalarFilter {
 	  * @param data	the data to be filtered
 	  * @return Double	the filtered value
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 		return data;
 	}
 
 	/** Resets the filter. For the identity filter really does nothing
 	  * @param resetValue	The value for the filter to be reset to
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 		return;
 	}
 }

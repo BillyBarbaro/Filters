@@ -12,7 +12,7 @@ public class MinFilterN extends NScalarFilter {
 	/** Implementation of calculateFilterValue, takes the min value of the history
 	  * @return Double	the minimum value in the history of inputs
 	  */
-	protected Double calculateFilterValue() {
+	protected final Double calculateFilterValue() {
 		// Gets input history
 		Double[] history = super.getInputHistory();
 

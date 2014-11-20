@@ -8,7 +8,7 @@ public class BinomialFilter extends FIRFilter {
 	  * @param N 	the sample size we're choosing from
 	  * @return Double[] the array of binomials
 	  */
-	private static Double[] createBinomial(int N) {
+	private static final Double[] createBinomial(int N) {
 		// If we're given a negative value, we just reverse it
 		if (N < 0)
 			N *= -1;

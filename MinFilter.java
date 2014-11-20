@@ -11,7 +11,7 @@ public class MinFilter extends ExtremeFilter {
 	  * @param data	The input to the filter
 	  * @return Double	The smallest value fed to the filter since the last reset
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 		if (output == null)
 			output = data;
 
@@ -23,7 +23,7 @@ public class MinFilter extends ExtremeFilter {
 	/** Sets the filter's min to the reset value
 	  * @param resetValue	the new min for the filter
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 		if (output == null)
 			output = new Double(resetValue);
 		else

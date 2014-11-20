@@ -25,7 +25,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Addes data to the history, overwriting past data if it exceeds N
 	  * @param data 	the data to be added to the filter
 	  */
-	private void addData(Double data) {
+	private final void addData(Double data) {
 		inputs[getWriteIndex()] = data;
 		if (currentSize < inputs.length)
 			currentSize++;
@@ -42,7 +42,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	  * @param data 	the data to be filtered
 	  * @return Double 	the filtered data
 	  */
-	public Double filter(Double data) {
+	public final Double filter(Double data) {
 		addData(data);
 		return calculateFilterValue();
 	}
@@ -50,7 +50,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Resets the filter's history and writes the reset value to it's history
 	  * @param resetValue 	the value to be written to the empty history
 	  */
-	public void reset(Double resetValue) {
+	public final void reset(Double resetValue) {
 		inputs = new Double[inputs.length];
 		inputs[0] = resetValue;
 		writeIndex = 1;
@@ -60,19 +60,19 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Getter for the input history
 	  * @return Double[] 	the history of inputs
 	  */
-	protected Double[] getInputHistory() {
+	protected final Double[] getInputHistory() {
 		return inputs;
 	}
 
 	/** Getter for the write index
 	  * @return int 	the write index
 	  */
-	private int getWriteIndex() {
+	private final int getWriteIndex() {
 		return writeIndex;
 	}
 
 	/** Increments the write index with wraparound */
-	private void incrementWriteIndex() {
+	private final void incrementWriteIndex() {
 		writeIndex = (++writeIndex) % inputs.length;
 		assert(writeIndex < inputs.length);
 	}
@@ -80,7 +80,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Gets the current number of inputs in the history
 	  * @return int 	the number of values in the history
 	  */
-	protected int getCurrentSize() {
+	protected final int getCurrentSize() {
 		return currentSize;
 	} 
 }
