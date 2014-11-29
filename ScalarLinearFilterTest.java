@@ -10,13 +10,25 @@ import org.junit.rules.ExpectedException;
 
 public class ScalarLinearFilterTest {
 
+	@Rule
+    public ExpectedException filterNull = ExpectedException.none();
+	@Test
+	public void testNullFilter() {
+		ScalarLinearFilter testFilter = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+
+		filterNull.expect(IllegalArgumentException.class);
+		filterNull.expectMessage("Cannot filter a null value");
+
+		testFilter.filter(null);
+	}
+
 	@Test
 	public void testFilter() {
 		ScalarLinearFilter test = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.05, 0.1);
 		assertEquals(test.filter(2.0), 1.495, 0.001);
-		test.reset(0.0);
+		test.reset(null);
 		assertEquals(test.filter(-1.0), -0.5, 0.001);
 		assertEquals(test.filter(3.0), 1.05, 0.001);
 		assertEquals(test.filter(1.0), 1.895, 0.001);

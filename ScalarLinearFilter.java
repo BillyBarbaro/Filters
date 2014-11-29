@@ -2,7 +2,7 @@
   * @author Billy Barbaro
   */
 
-public class ScalarLinearFilter implements Filter<Double> {
+public class ScalarLinearFilter extends ScalarFilter {
 	
 	/** A parameters for the filter */
 	private Double[] aParams;
@@ -66,7 +66,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	  * @return Double	the filtered data
 	  */
 	public final Double filter(Double data) {
-
+		checkNullFilterValue(data);
 		writeInput(data);
 
 		// Iterates through the inputs and their corresponding coefficients
@@ -116,7 +116,7 @@ public class ScalarLinearFilter implements Filter<Double> {
 	  * @param resetValue 	the value to calculate the reset values for the input/output histories
 	  */
 	public final void reset(Double resetValue) {
-
+		resetValue = replaceResetNull(resetValue);
 		// Sets the input history to the resetValue
 		for (int i = 0; i < inputHistory.length; i++)
 			inputHistory[i] = resetValue;

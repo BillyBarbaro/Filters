@@ -10,6 +10,18 @@ import org.junit.rules.ExpectedException;
 
 public class MaxFilterTest {
 
+	@Rule
+    public ExpectedException filterNull = ExpectedException.none();
+	@Test
+	public void testNullFilter() {
+		MaxFilter testFilter = new MaxFilter();
+
+		filterNull.expect(IllegalArgumentException.class);
+		filterNull.expectMessage("Cannot filter a null value");
+
+		testFilter.filter(null);
+	}
+
 	@Test
 	public void testFilter() {
 		MaxFilter testFilter = new MaxFilter();
@@ -29,7 +41,7 @@ public class MaxFilterTest {
 	@Test
 	public void testReset() {
 		MaxFilter testFilter = new MaxFilter();
-		testFilter.reset(0.0);
+		testFilter.reset(null);
 		assertEquals("Max filter fails for reset of 0.0", testFilter.filter(-1.0), 0.0, 0.1);
 		assertEquals("Max filter fails for 0.0", testFilter.filter(1.0), 1.0, 0.1);
 		testFilter.reset(-14.0);

@@ -19,6 +19,7 @@ public class AverageFilter extends ScalarFilter {
 	  * @return Double	an average of all values input to the filter thus far
 	  */
 	public final Double filter(Double data) {
+		checkNullFilterValue(data);
 		currentInputCount++;
 		// Formula to calculate new average
 		assert(currentInputCount != 0);

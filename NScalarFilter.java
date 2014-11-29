@@ -26,7 +26,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	  * @param data 	the data to be added to the filter
 	  */
 	private final void addData(Double data) {
-		inputs[getWriteIndex()] = data;
+		inputs[writeIndex] = data;
 		if (currentSize < inputs.length)
 			currentSize++;
 		assert(currentSize <= inputs.length);
@@ -43,6 +43,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	  * @return Double 	the filtered data
 	  */
 	public final Double filter(Double data) {
+		checkNullFilterValue(data);
 		addData(data);
 		return calculateFilterValue();
 	}
@@ -51,6 +52,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	  * @param resetValue 	the value to be written to the empty history
 	  */
 	public final void reset(Double resetValue) {
+		resetValue = replaceResetNull(resetValue);
 		inputs = new Double[inputs.length];
 		inputs[0] = resetValue;
 		writeIndex = 1;
@@ -64,16 +66,9 @@ public abstract class NScalarFilter extends ScalarFilter {
 		return inputs;
 	}
 
-	/** Getter for the write index
-	  * @return int 	the write index
-	  */
-	private final int getWriteIndex() {
-		return writeIndex;
-	}
-
 	/** Increments the write index with wraparound */
 	private final void incrementWriteIndex() {
-		writeIndex = (++writeIndex) % inputs.length;
+		writeIndex = ++writeIndex % inputs.length;
 		assert(writeIndex < inputs.length);
 	}
 

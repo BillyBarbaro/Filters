@@ -12,6 +12,7 @@ public class MaxFilter extends ExtremeFilter {
 	  * @return Double	The largest value fed to the filter since the last reset
 	  */
 	public final Double filter(Double data) {
+		checkNullFilterValue(data);
 		if (output == null)
 			output = data;
 
@@ -24,6 +25,7 @@ public class MaxFilter extends ExtremeFilter {
 	  * @param resetValue	the new max for the filter
 	  */
 	public final void reset(Double resetValue) {
+		resetValue = replaceResetNull(resetValue);
 		if (output == null)
 			output = new Double(resetValue);
 		else

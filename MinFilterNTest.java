@@ -10,6 +10,18 @@ import org.junit.rules.ExpectedException;
 
 public class MinFilterNTest {
 
+	@Rule
+    public ExpectedException filterNull = ExpectedException.none();
+	@Test
+	public void testNullFilter() {
+		MinFilterN testFilter = new MinFilterN(3);
+
+		filterNull.expect(IllegalArgumentException.class);
+		filterNull.expectMessage("Cannot filter a null value");
+
+		testFilter.filter(null);
+	}
+
 	@Test
 	public void testFilterSize3() {
 		MinFilterN testFilter = new MinFilterN(3);
@@ -71,7 +83,7 @@ public class MinFilterNTest {
 		MinFilterN testFilter = new MinFilterN(3);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 0.0, 0.1);
-		testFilter.reset(0.0);
+		testFilter.reset(null);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
 		assertEquals("Min N filter fails for 0.5", testFilter.filter(0.5), -1.0, 0.1);
 		assertEquals("Min N filter fails for -0.5", testFilter.filter(-0.5), -1.0, 0.1);

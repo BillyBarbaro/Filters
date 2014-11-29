@@ -12,11 +12,12 @@ public class MinFilter extends ExtremeFilter {
 	  * @return Double	The smallest value fed to the filter since the last reset
 	  */
 	public final Double filter(Double data) {
+		checkNullFilterValue(data);
 		if (output == null)
 			output = data;
 
 		// Compares to current largest value. If smaller, it replaces
-		output = data < output ? data : output;
+		output = (data < output) ? data : output;
 		return output;
 	}
 
@@ -24,6 +25,7 @@ public class MinFilter extends ExtremeFilter {
 	  * @param resetValue	the new min for the filter
 	  */
 	public final void reset(Double resetValue) {
+		resetValue = replaceResetNull(resetValue);
 		if (output == null)
 			output = new Double(resetValue);
 		else

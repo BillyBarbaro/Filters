@@ -21,6 +21,8 @@ public class FilterCascade implements Filter<Double> {
 	  * @return Double	the filtered data
 	  */
 	public final Double filter(Double data) {
+		if (data == null)
+			throw new IllegalArgumentException("Cannot filter a null value");
 		for (Filter<Double> filter : filters) {
 			data = filter.filter(data);
 		}
@@ -31,6 +33,7 @@ public class FilterCascade implements Filter<Double> {
 	  * @param resetValue	the resetvalue for the filter
 	  */
 	public final void reset(Double resetValue) {
+		resetValue = (resetValue == null) ? 0.0 : resetValue;
 		for (int i = 0; i < filters.size(); i++)
 			resetFilterAtIndex(i, resetValue);
 	}
@@ -40,6 +43,7 @@ public class FilterCascade implements Filter<Double> {
 	  * @param resetValue	the resetvalue for the filter
 	  */
 	public final void resetFilterAtIndex(int index, Double resetValue) {
+		resetValue = (resetValue == null) ? 0.0 : resetValue;
 		// Watch the indicies
 		if (index < 0)
 			index = 0;

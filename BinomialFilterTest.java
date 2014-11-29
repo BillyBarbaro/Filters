@@ -9,6 +9,18 @@ import org.junit.rules.ExpectedException;
   */
 
 public class BinomialFilterTest {
+
+	@Rule
+    public ExpectedException filterNull = ExpectedException.none();
+	@Test
+	public void testNullFilter() {
+		BinomialFilter testFilter = new BinomialFilter(4);
+
+		filterNull.expect(IllegalArgumentException.class);
+		filterNull.expectMessage("Cannot filter a null value");
+
+		testFilter.filter(null);
+	}
 	
 	@Test
 	public void testFilter() {
@@ -16,7 +28,7 @@ public class BinomialFilterTest {
 		assertEquals(test.filter(-1.0), -1.0, 0.1);
 		assertEquals(test.filter(1.0), 3.0, 0.1);
 		assertEquals(test.filter(2.0), 15.0, 0.001);
-		test.reset(0.0);
+		test.reset(null);
 		assertEquals(test.filter(-1.0), -4.0, 0.001);
 		assertEquals(test.filter(3.0), -1.0, 0.001);
 		assertEquals(test.filter(1.0), 3.0, 0.001);

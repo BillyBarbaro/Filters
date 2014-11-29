@@ -9,6 +9,18 @@ import org.junit.rules.ExpectedException;
   */
 
 public class IdentityFilterTest {
+
+	@Rule
+    public ExpectedException filterNull = ExpectedException.none();
+	@Test
+	public void testNullFilter() {
+		IdentityFilter testFilter = new IdentityFilter();
+
+		filterNull.expect(IllegalArgumentException.class);
+		filterNull.expectMessage("Cannot filter a null value");
+
+		testFilter.filter(null);
+	}
 	
 	@Test
 	public void testFilter() {
@@ -28,6 +40,7 @@ public class IdentityFilterTest {
 	public void testReset() {
 		IdentityFilter testFilter = new IdentityFilter();
 		testFilter.reset(0.0);
+		testFilter.reset(null);
 		testFilter.reset(1.0);
 		testFilter.reset(-1.0);
 		testFilter.reset(0.5);

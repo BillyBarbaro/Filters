@@ -14,6 +14,7 @@ public class IdentityFilter extends ScalarFilter {
 	  * @return Double	the filtered value
 	  */
 	public final Double filter(Double data) {
+		checkNullFilterValue(data);
 		return data;
 	}
 
