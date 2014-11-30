@@ -4,32 +4,23 @@
 
 public class Combinations {
 	
-	/** Calculates a combination of N, k
-	  * @param N 	the things to choose from
-	  * @param k 	the number of things to be chosen
-	  * @return	Double	value of nChoosek
+	/** Creates a table of N choose K values
+	  * @param N 	the Max things to choose from
+	  * @param k 	the Max number of things to be chosen
+	  * @return	int[][]	table of combinations
 	  */
-	public static Double nChoosek(int N, int k) {
-		// Can't choose negative numbers
-		if (k < 0)
-			return 0.0;
+	public static int[][] nChoosek(int N, int K) {
+		int binomial[][] = new int[N+1][K+1];
 
-		// Must be choosing less than we have
-		int numberNeeded = N - k;
-		if (numberNeeded < 0)
-			return 0.0;
+		for (int k = 1; k <= K; k++)
+			binomial[0][k] = 0;
+		for (int n = 0; n <= N; n++)
+			binomial[n][0] = 1;
 
-		// Calculates the factorials for the numerator
-		int numerator = 1;
-		for (int i = 0; i  < k; i++) {
-			numerator *= N - i;
-		}
+		for (int n = 1; n <= N; n++)
+		   for (int k = 1; k <= K; k++)
+		      binomial[n][k] = binomial[n-1][k-1] + binomial[n-1][k];
 
-		// Calculates the factorials for the denominator
-		int denominator = 1;
-		for (int i = 1; i <= k; i++)
-			denominator *= i;
-
-		return new Double((numerator/denominator));
+		return binomial;
 	}
 }

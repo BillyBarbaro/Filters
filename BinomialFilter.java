@@ -16,10 +16,12 @@ public class BinomialFilter extends FIRFilter {
 		assert(N >= 0);
 
 		Double[] bParams = new Double[N];
+		// A table to draw our combinations from
+		int[][] binomial = Combinations.nChoosek(N, N);
 
-		// Calculate N choose i for each index and save it down
+		// Stores the combination table value into the paramter list
 		for (int i = 0; i < N; i++) {
-			bParams[i] = Combinations.nChoosek(N, i);
+			bParams[i] = new Double(binomial[N][i]);
 		}
 		return bParams;
 	}
