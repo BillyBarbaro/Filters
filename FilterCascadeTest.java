@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import java.util.ArrayList;
 
 /** Test Bench for Filter Cascade
   * @author Billy Barbaro
@@ -15,10 +14,8 @@ public class FilterCascadeTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
-		filters.add(MaxFilterN.maxFilterWithN(2));
-		filters.add(MinFilterN.minFilterWithN(3));
-		FilterCascade<Double> testFilter = new FilterCascade<Double>(filters);
+		
+		FilterCascade<Double> testFilter = new FilterCascade.FilterCascadeBuilder(MaxFilterN.maxFilterWithN(2)).addFilter(MinFilterN.minFilterWithN(3)).build();
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -30,10 +27,7 @@ public class FilterCascadeTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
-		filters.add(MaxFilterN.maxFilterWithN(2));
-		filters.add(MinFilterN.minFilterWithN(3));
-		FilterCascade<Double> testFilter = new FilterCascade<Double>(filters);
+		FilterCascade<Double> testFilter = new FilterCascade.FilterCascadeBuilder(MaxFilterN.maxFilterWithN(2)).addFilter(MinFilterN.minFilterWithN(3)).build();
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -43,10 +37,7 @@ public class FilterCascadeTest {
 
 	@Test
 	public void testCascadeFromSpec() {
-		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
-		filters.add(MaxFilterN.maxFilterWithN(2));
-		filters.add(MinFilterN.minFilterWithN(3));
-		FilterCascade<Double> test = new FilterCascade<Double>(filters);
+		FilterCascade<Double> test = new FilterCascade.FilterCascadeBuilder(MaxFilterN.maxFilterWithN(2)).addFilter(MinFilterN.minFilterWithN(3)).build();
 		assertEquals(test.filter(-1.0), -1.0, 0.1);
 		assertEquals(test.filter(3.0), -1.0, 0.1);
 		assertEquals(test.filter(1.0), -1.0, 0.001);
@@ -62,10 +53,7 @@ public class FilterCascadeTest {
 
 	@Test
 	public void testCascadeWithScalarLinear() {
-		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
-		filters.add(ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5}));
-		filters.add(GainFilter.makeGainFilter(2.0));
-		FilterCascade<Double> test = new FilterCascade<Double>(filters);
+		FilterCascade<Double> test = new FilterCascade.FilterCascadeBuilder(ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5})).addFilter(GainFilter.makeGainFilter(2.0)).build();
 		assertEquals(test.filter(-1.0), -1.0, 0.1);
 		assertEquals(test.filter(1.0), 0.1, 0.1);
 		assertEquals(test.filter(2.0), 2.9, 0.1);
@@ -80,10 +68,7 @@ public class FilterCascadeTest {
 	
 	@Test
 	public void testGenerics() {
-		ArrayList<Filter<String>> filters = new ArrayList<Filter<String>>();
-		filters.add(MaxFilterN.maxFilterWithN(2));
-		filters.add(MinFilterN.minFilterWithN(3));
-		FilterCascade<String> test = new FilterCascade<String>(filters);
+		FilterCascade<String> test = new FilterCascade.FilterCascadeBuilder(MaxFilterN.maxFilterWithN(2)).addFilter(MinFilterN.minFilterWithN(3)).build();
 		assertEquals(test.filter("Gorilla"), "Gorilla");
 		assertEquals(test.filter("Cat"), "Gorilla");
 		assertEquals(test.filter("Hamster"), "Gorilla");

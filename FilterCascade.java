@@ -9,10 +9,32 @@ public class FilterCascade<T extends Comparable<T>> implements Filter<T> {
 	/** The filters to run an input value through */
 	public ArrayList<Filter<T>> filters;
 
+	public static class FilterCascadeBuilder<Q extends Comparable<Q>> {
+		private ArrayList<Filter<Q>> filters;
+
+		public FilterCascadeBuilder(Filter<Q> filter) {
+			if (filter == null)
+				filter = new IdentityFilter<Q>();
+			filters = new ArrayList<Filter<Q>>();
+			filters.add(filter);
+		}
+
+		public FilterCascadeBuilder<Q> addFilter(Filter<Q> filter) {
+			if (filter == null)
+				throw new IllegalArgumentException("Filters may not be null");
+			filters.add(filter);
+			return this;
+		}
+
+		public FilterCascade<Q> build() {
+			return new FilterCascade<Q>(filters);
+		}
+	}
+
 	/** Sets the list of Filters to the input list
 	  * @param filters an ArrayList of filters to run the input through
 	  */
-	public FilterCascade(ArrayList<Filter<T>> filters) {
+	private FilterCascade(ArrayList<Filter<T>> filters) {
 		this.filters = filters;
 	}
 
