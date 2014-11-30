@@ -14,7 +14,7 @@ public class IdentityFilterTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		IdentityFilter testFilter = new IdentityFilter();
+		IdentityFilter<Double> testFilter = new IdentityFilter<Double>();
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class IdentityFilterTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		IdentityFilter testFilter = new IdentityFilter();
+		IdentityFilter<Double> testFilter = new IdentityFilter<Double>();
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -36,7 +36,7 @@ public class IdentityFilterTest {
 	
 	@Test
 	public void testFilter() {
-		IdentityFilter testFilter = new IdentityFilter();
+		IdentityFilter<Double> testFilter = new IdentityFilter<Double>();
 		assertEquals("Identity filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Identity filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Identity filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -50,7 +50,7 @@ public class IdentityFilterTest {
 
 	@Test
 	public void testReset() {
-		IdentityFilter testFilter = new IdentityFilter();
+		IdentityFilter<Double> testFilter = new IdentityFilter<Double>();
 		testFilter.reset(0.0);
 		testFilter.reset(0.0);
 		testFilter.reset(1.0);

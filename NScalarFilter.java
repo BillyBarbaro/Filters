@@ -2,14 +2,14 @@
   * @author Billy Barbaro
   */
 
-public abstract class NScalarFilter extends ScalarFilter {
+import java.util.LinkedList;
+
+public abstract class NScalarFilter<T extends Comparable<T>> extends ScalarFilter<T> {
 	
 	/** Array of the past N inputs */
-	private Double[] inputs;
+	private LinkedList<T> inputs;
 	/** The current index to write in the array */
-	private int writeIndex;
-	/** Tracks the number of values fed to the filter up to N */
-	private int currentSize;
+	private int maxSize;
 
 	/** Constructor to create a Scalar Filter keeping track of N values
 	  * @param N 	the number of past vales to be stored in memory
@@ -17,32 +17,28 @@ public abstract class NScalarFilter extends ScalarFilter {
 	public NScalarFilter(int N) {
 		if (N < 1)
 			N = 1;
-		inputs = new Double[N];
-		writeIndex = 0;
-		currentSize = 0;
+		inputs = new LinkedList<T>();
+		maxSize = N;
 	}
 
 	/** Addes data to the history, overwriting past data if it exceeds N
 	  * @param data 	the data to be added to the filter
 	  */
-	private final void addData(Double data) {
-		inputs[writeIndex] = data;
-		if (currentSize < inputs.length)
-			currentSize++;
-		assert(currentSize <= inputs.length);
-		this.incrementWriteIndex();
+	private final void addData(T data) {
+		inputs.add(data);
+		if (inputs.size() > maxSize)
+			inputs.pollFirst();
+		assert(maxSize <= inputs.size());
 	}
 
-	/** A calculates a return value from the filter's history
-	  * @return Double	the output of the filtering function
-	  */
-	abstract protected Double calculateFilterValue();
+	/** A calculates a return value from the filter's history */
+	abstract protected T calculateFilterValue();
 
 	/** Given data, adds it to the history and returns the next output
 	  * @param data 	the data to be filtered
-	  * @return Double 	the filtered data
+	  * @return T 	the filtered data
 	  */
-	public final Double filter(Double data) {
+	public final T filter(T data) {
 		checkNullFilterValue(data);
 		addData(data);
 		return calculateFilterValue();
@@ -51,31 +47,16 @@ public abstract class NScalarFilter extends ScalarFilter {
 	/** Resets the filter's history and writes the reset value to it's history
 	  * @param resetValue 	the value to be written to the empty history
 	  */
-	public final void reset(Double resetValue) {
+	public final void reset(T resetValue) {
 		checkResetNull(resetValue);
-		inputs = new Double[inputs.length];
-		inputs[0] = resetValue;
-		writeIndex = 1;
-		currentSize = 1;
+		inputs = new LinkedList<T>();
+		inputs.add(resetValue);
 	}
 
 	/** Getter for the input history
-	  * @return Double[] 	the history of inputs
+	  * @return T[] 	the history of inputs
 	  */
-	protected final Double[] getInputHistory() {
+	protected final LinkedList<T> getInputHistory() {
 		return inputs;
 	}
-
-	/** Increments the write index with wraparound */
-	private final void incrementWriteIndex() {
-		writeIndex = ++writeIndex % inputs.length;
-		assert(writeIndex < inputs.length);
-	}
-
-	/** Gets the current number of inputs in the history
-	  * @return int 	the number of values in the history
-	  */
-	protected final int getCurrentSize() {
-		return currentSize;
-	} 
 }

@@ -2,7 +2,9 @@
   * @author Billy Barbaro
   */
 
-public class MinFilterN extends NScalarFilter {
+import java.util.LinkedList;
+
+public class MinFilterN<T extends Comparable<T>> extends NScalarFilter<T> {
 
 	/** Calls the constructor of the super class */
 	public MinFilterN(int N) {
@@ -12,15 +14,15 @@ public class MinFilterN extends NScalarFilter {
 	/** Implementation of calculateFilterValue, takes the min value of the history
 	  * @return Double	the minimum value in the history of inputs
 	  */
-	protected final Double calculateFilterValue() {
+	protected final T calculateFilterValue() {
 		// Gets input history
-		Double[] history = super.getInputHistory();
+		LinkedList<T> history = super.getInputHistory();
 
-		// Loops through the history keeping the smallest value it's seen
-		Double min = history[0];
-		for (int i = 1; i < history.length; i++) {
-			if (history[i] != null)
-				min = (min < history[i]) ? min : history[i];
+		// Loops through the history keeping the largest value it's seen
+		T min = history.getFirst();
+		for (T data : history) {
+			if (data != null)
+				min = (min.compareTo(data) < 0) ? min : data;
 		}
 		return min;
 	}

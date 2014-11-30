@@ -2,7 +2,9 @@
   * @author Billy Barbaro
   */
 
-public class MaxFilterN extends NScalarFilter {
+import java.util.LinkedList;
+
+public class MaxFilterN<T extends Comparable<T>> extends NScalarFilter<T> {
 
 	/** Calls the constructor of the super class */
 	public MaxFilterN(int N) {
@@ -10,17 +12,17 @@ public class MaxFilterN extends NScalarFilter {
 	}
 	
 	/** Implementation of calculateFilterValue, takes the max value of the history
-	  * @return Double	the maximum value in the history of inputs
+	  * @return T	the maximum value in the history of inputs
 	  */
-	protected final Double calculateFilterValue() {
+	protected final T calculateFilterValue() {
 		// Gets input history
-		Double[] history = super.getInputHistory();
+		LinkedList<T> history = super.getInputHistory();
 
 		// Loops through the history keeping the largest value it's seen
-		Double max = history[0];
-		for (int i = 1; i < history.length; i++) {
-			if (history[i] != null)
-				max = (max > history[i]) ? max : history[i];
+		T max = history.getFirst();
+		for (T data : history) {
+			if (data != null)
+				max = (max.compareTo(data) > 0) ? max : data;
 		}
 		return max;
 	}

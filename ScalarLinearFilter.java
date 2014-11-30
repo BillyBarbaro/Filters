@@ -2,7 +2,7 @@
   * @author Billy Barbaro
   */
 
-public class ScalarLinearFilter extends ScalarFilter {
+public class ScalarLinearFilter extends ScalarFilter<Double> {
 	
 	/** A parameters for the filter */
 	private Double[] aParams;

@@ -14,7 +14,7 @@ public class MinFilterTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		MinFilter testFilter = new MinFilter();
+		MinFilter<Double> testFilter = new MinFilter<Double>();
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class MinFilterTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		MinFilter testFilter = new MinFilter();
+		MinFilter<Double> testFilter = new MinFilter<Double>();
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -36,7 +36,7 @@ public class MinFilterTest {
 
 	@Test
 	public void testFilter() {
-		MinFilter testFilter = new MinFilter();
+		MinFilter<Double> testFilter = new MinFilter<Double>();
 		assertEquals("Min filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min filter fails for 1.0", testFilter.filter(1.0), 0.0, 0.1);
 		assertEquals("Min filter fails for 1.0 repeated", testFilter.filter(1.0), 0.0, 0.1);
@@ -52,7 +52,7 @@ public class MinFilterTest {
 
 	@Test
 	public void testReset() {
-		MinFilter testFilter = new MinFilter();
+		MinFilter<Double> testFilter = new MinFilter<Double>();
 		testFilter.reset(0.0);
 		assertEquals("Min filter fails for reset of 0.0", testFilter.filter(1.0), 0.0, 0.1);
 		assertEquals("Min filter fails for 0.0", testFilter.filter(-1.0), -1.0, 0.1);

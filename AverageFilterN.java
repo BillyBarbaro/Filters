@@ -2,7 +2,9 @@
   * @author Billy Barbaro
   */
 
-public class AverageFilterN extends NScalarFilter {
+import java.util.LinkedList;
+
+public class AverageFilterN extends NScalarFilter<Double> {
 
 	/** Calls the constructor of the super class */
 	public AverageFilterN(int N) {
@@ -13,7 +15,7 @@ public class AverageFilterN extends NScalarFilter {
 	  * @return Double	the average value in the history of inputs
 	  */
 	protected final Double calculateFilterValue() {
-		assert(getInputHistory().length != 0);
+		assert(super.getInputHistory().size() != 0);
 
 		// Keeps the running total of all entries in the list
 		Double runningTotal = 0.0;
@@ -21,8 +23,8 @@ public class AverageFilterN extends NScalarFilter {
 			if (d != null)
 				runningTotal += d;
 		}
-		assert(super.getCurrentSize() != 0);
+		
 		// Divides them out to give the average
-		return runningTotal / super.getCurrentSize();
+		return runningTotal / super.getInputHistory().size();
 	}	
 }

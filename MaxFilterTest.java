@@ -14,7 +14,7 @@ public class MaxFilterTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		MaxFilter testFilter = new MaxFilter();
+		MaxFilter<Double> testFilter = new MaxFilter<Double>();
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class MaxFilterTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		MaxFilter testFilter = new MaxFilter();
+		MaxFilter<Double> testFilter = new MaxFilter<Double>();
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -36,7 +36,7 @@ public class MaxFilterTest {
 
 	@Test
 	public void testFilter() {
-		MaxFilter testFilter = new MaxFilter();
+		MaxFilter<Double> testFilter = new MaxFilter<Double>();
 		assertEquals("Max filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Max filter fails for 1.0 repeated", testFilter.filter(1.0), 1.0, 0.1);
@@ -52,7 +52,7 @@ public class MaxFilterTest {
 
 	@Test
 	public void testReset() {
-		MaxFilter testFilter = new MaxFilter();
+		MaxFilter<Double> testFilter = new MaxFilter<Double>();
 		testFilter.reset(0.0);
 		assertEquals("Max filter fails for reset of 0.0", testFilter.filter(-1.0), 0.0, 0.1);
 		assertEquals("Max filter fails for 0.0", testFilter.filter(1.0), 1.0, 0.1);

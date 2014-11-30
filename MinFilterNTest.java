@@ -14,7 +14,7 @@ public class MinFilterNTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		MinFilterN testFilter = new MinFilterN(3);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(3);
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class MinFilterNTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		MinFilterN testFilter = new MinFilterN(3);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(3);
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -36,7 +36,7 @@ public class MinFilterNTest {
 
 	@Test
 	public void testFilterSize3() {
-		MinFilterN testFilter = new MinFilterN(3);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(3);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -50,7 +50,7 @@ public class MinFilterNTest {
 
 	@Test
 	public void testFilterSize1() {
-		MinFilterN testFilter = new MinFilterN(1);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(1);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -64,7 +64,7 @@ public class MinFilterNTest {
 
 	@Test
 	public void testFilterSize0() {
-		MinFilterN testFilter = new MinFilterN(0);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(0);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -78,7 +78,7 @@ public class MinFilterNTest {
 
 	@Test
 	public void testFilterSizeNegative() {
-		MinFilterN testFilter = new MinFilterN(-27);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(-27);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -92,7 +92,7 @@ public class MinFilterNTest {
 
 	@Test
 	public void testReset() {
-		MinFilterN testFilter = new MinFilterN(3);
+		MinFilterN<Double> testFilter = new MinFilterN<Double>(3);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 0.0, 0.1);
 		testFilter.reset(0.0);

@@ -14,7 +14,7 @@ public class MaxFilterNTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		MaxFilterN testFilter = new MaxFilterN(3);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(3);
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class MaxFilterNTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		MaxFilterN testFilter = new MaxFilterN(3);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(3);
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -36,7 +36,7 @@ public class MaxFilterNTest {
 
 	@Test
 	public void testFilterSize3() {
-		MaxFilterN testFilter = new MaxFilterN(3);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(3);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Max N filter fails for -1.0", testFilter.filter(-1.0), 1.0, 0.1);
@@ -51,7 +51,7 @@ public class MaxFilterNTest {
 
 	@Test
 	public void testFilterSize1() {
-		MaxFilterN testFilter = new MaxFilterN(1);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(1);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Max N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -65,7 +65,7 @@ public class MaxFilterNTest {
 
 	@Test
 	public void testFilterSize0() {
-		MaxFilterN testFilter = new MaxFilterN(0);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(0);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Max N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -79,7 +79,7 @@ public class MaxFilterNTest {
 
 	@Test
 	public void testFilterSizeNegative() {
-		MaxFilterN testFilter = new MaxFilterN(-27);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(-27);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Max N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -93,7 +93,7 @@ public class MaxFilterNTest {
 
 	@Test
 	public void testReset() {
-		MaxFilterN testFilter = new MaxFilterN(3);
+		MaxFilterN<Double> testFilter = new MaxFilterN<Double>(3);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		testFilter.reset(0.0);

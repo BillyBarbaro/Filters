@@ -2,7 +2,7 @@
   * @author Billy Barbaro
   */
 
-public class IdentityFilter extends ScalarFilter {
+public class IdentityFilter<T> extends ScalarFilter<T> {
 	
 	/** No real setup needed */
 	public IdentityFilter() {
@@ -13,7 +13,7 @@ public class IdentityFilter extends ScalarFilter {
 	  * @param data	the data to be filtered
 	  * @return Double	the filtered value
 	  */
-	public final Double filter(Double data) {
+	public final T filter(T data) {
 		checkNullFilterValue(data);
 		return data;
 	}
@@ -21,7 +21,7 @@ public class IdentityFilter extends ScalarFilter {
 	/** Resets the filter. For the identity filter really does nothing
 	  * @param resetValue	The value for the filter to be reset to
 	  */
-	public final void reset(Double resetValue) {
+	public final void reset(T resetValue) {
 		checkResetNull(resetValue);
 		return;
 	}

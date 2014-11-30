@@ -2,7 +2,7 @@
   * @author Billy Barbaro
   */
 
-public class AverageFilter extends ScalarFilter {
+public class AverageFilter extends ScalarFilter<Double> {
 	
 	/** Keeps track of how many values have been pushed through since the last reset */
 	private int currentInputCount;
