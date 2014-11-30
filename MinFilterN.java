@@ -7,8 +7,14 @@ import java.util.LinkedList;
 public class MinFilterN<T extends Comparable<T>> extends NScalarFilter<T> {
 
 	/** Calls the constructor of the super class */
-	public MinFilterN(int N) {
+	private MinFilterN(int N) {
 		super(N);
+	}
+
+	public static MinFilterN minFilterWithN(int N) {
+		if (N < 1)
+			throw new IllegalArgumentException("A filter must have a size of at least 1");
+		return new MinFilterN(N);
 	}
 	
 	/** Implementation of calculateFilterValue, takes the min value of the history

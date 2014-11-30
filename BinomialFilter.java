@@ -2,7 +2,9 @@
   * @author Billy Barbaro
   */
 
-public class BinomialFilter extends FIRFilter {
+public class BinomialFilter implements Filter<Double> {
+
+	FIRFilter parent;
 
 	/** Creates an array with the value at index i as N choose i
 	  * @param N 	the sample size we're choosing from
@@ -29,7 +31,26 @@ public class BinomialFilter extends FIRFilter {
 	/** Calls the super class's constructor with a bParams array being the binomial array
 	  * @param N	the number of values we choose from
 	  */
-	public BinomialFilter(int N) {
-		super(createBinomial(N));
+	private BinomialFilter(int N) {
+		parent = FIRFilter.makeFIRFilter(createBinomial(N));
+	}
+
+	public static BinomialFilter makeBinomialFilter(int N) {
+		return new BinomialFilter(N);
+	}
+
+	/** Filters the given data
+	  * @param data	the data to be run through the filter
+	  * @return Double	the filtered data
+	  */
+	public final Double filter(Double data) {
+		return parent.filter(data);
+	}
+
+	/** Resets the filter
+	  * @param resetValue 	the value to calculate the reset values for the input/output histories
+	  */
+	public final void reset(Double resetValue) {
+		parent.reset(resetValue);
 	}
 }

@@ -21,12 +21,19 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 	  * @param aParams	coefficients for the outputs
 	  * @param bParams	coefficients for the inputs
 	  */
-	public ScalarLinearFilter(Double[] aParams, Double[] bParams) {
+	private ScalarLinearFilter(Double[] aParams, Double[] bParams) {
 		this.aParams = aParams;
 		this.bParams = bParams;
 		// Input and output histories must be the same length as their parameters
 		this.inputHistory = new Double[bParams.length];
 		this.outputHistory = new Double[aParams.length];
+	}
+
+	public static ScalarLinearFilter makeScalarLinearFilter(Double[] aParams, Double[] bParams) {
+		if (aParams == null || bParams == null)
+			throw new IllegalArgumentException("Parameter list cannot be null");
+
+		return new ScalarLinearFilter(aParams, bParams);
 	}
 
 	/** Increments the input write index with wraparound */

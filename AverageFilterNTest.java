@@ -14,7 +14,7 @@ public class AverageFilterNTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		AverageFilterN testFilter = new AverageFilterN(3);
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(3);
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class AverageFilterNTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		AverageFilterN testFilter = new AverageFilterN(3);
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(3);
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -34,9 +34,18 @@ public class AverageFilterNTest {
 		testFilter.reset(null);
 	}
 
+	@Rule
+	public ExpectedException negativeN = ExpectedException.none();
+	@Test
+	public void testFilterSizeNegative() {
+		negativeN.expect(IllegalArgumentException.class);
+		negativeN.expectMessage("A filter must have a size of at least 1");
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(-27);
+	}
+
 	@Test
 	public void testFilterSize3() {
-		AverageFilterN testFilter = new AverageFilterN(3);
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(3);
 		assertEquals("Average N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Average N filter fails for 1.0", testFilter.filter(1.0), 0.5, 0.1);
 		assertEquals("Average N filter fails for -1.0", testFilter.filter(-1.0), 0.0, 0.1);
@@ -48,31 +57,7 @@ public class AverageFilterNTest {
 
 	@Test
 	public void testFilterSize1() {
-		AverageFilterN testFilter = new AverageFilterN(1);
-		assertEquals("Average N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
-		assertEquals("Average N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
-		assertEquals("Average N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
-		assertEquals("Average N filter fails for 0.5", testFilter.filter(0.5), 0.5, 0.1);
-		assertEquals("Average N filter fails for -0.5", testFilter.filter(-0.5), -0.5, 0.1);
-		assertEquals("Average N filter fails for 27.2", testFilter.filter(27.2), 27.2, 0.1);
-		assertEquals("Average N filter fails for -27.2", testFilter.filter(-27.2), -27.2, 0.1);
-	}
-
-	@Test
-	public void testFilterSize0() {
-		AverageFilterN testFilter = new AverageFilterN(0);
-		assertEquals("Average N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
-		assertEquals("Average N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
-		assertEquals("Average N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
-		assertEquals("Average N filter fails for 0.5", testFilter.filter(0.5), 0.5, 0.1);
-		assertEquals("Average N filter fails for -0.5", testFilter.filter(-0.5), -0.5, 0.1);
-		assertEquals("Average N filter fails for 27.2", testFilter.filter(27.2), 27.2, 0.1);
-		assertEquals("Average N filter fails for -27.2", testFilter.filter(-27.2), -27.2, 0.1);
-	}
-
-	@Test
-	public void testFilterSizeNegative() {
-		AverageFilterN testFilter = new AverageFilterN(-27);
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(1);
 		assertEquals("Average N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Average N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Average N filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -84,7 +69,7 @@ public class AverageFilterNTest {
 
 	@Test
 	public void testReset() {
-		AverageFilterN testFilter = new AverageFilterN(3);
+		AverageFilterN testFilter = AverageFilterN.averageFilterWithN(3);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 0.5, 0.1);
 		testFilter.reset(0.0);

@@ -14,7 +14,7 @@ public class ScalarLinearFilterTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		ScalarLinearFilter testFilter = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+		ScalarLinearFilter testFilter = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,7 +26,7 @@ public class ScalarLinearFilterTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		ScalarLinearFilter testFilter = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+		ScalarLinearFilter testFilter = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
@@ -34,9 +34,19 @@ public class ScalarLinearFilterTest {
 		testFilter.reset(null);
 	}
 
+	@Rule
+    public ExpectedException constructorNull = ExpectedException.none();
+	@Test
+	public void testConstructorNull() {
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Parameter list cannot be null");
+
+		ScalarLinearFilter testFilter = ScalarLinearFilter.makeScalarLinearFilter(null, null);
+	}
+
 	@Test
 	public void testFilter() {
-		ScalarLinearFilter test = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+		ScalarLinearFilter test = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.05, 0.1);
 		assertEquals(test.filter(2.0), 1.495, 0.001);
@@ -50,7 +60,7 @@ public class ScalarLinearFilterTest {
 
 	@Test
 	public void testFilterNegativeReset() {
-		ScalarLinearFilter test = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+		ScalarLinearFilter test = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.05, 0.1);
 		assertEquals(test.filter(2.0), 1.495, 0.001);
@@ -64,7 +74,7 @@ public class ScalarLinearFilterTest {
 
 	@Test
 	public void testFilterPositiveRest() {
-		ScalarLinearFilter test = new ScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
+		ScalarLinearFilter test = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{0.1}, new Double[]{0.5, 0.5});
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.05, 0.1);
 		assertEquals(test.filter(2.0), 1.495, 0.001);
@@ -78,7 +88,7 @@ public class ScalarLinearFilterTest {
 
 	@Test
 	public void testFilterAParamsSum0() {
-		ScalarLinearFilter test = new ScalarLinearFilter(new Double[]{-1.0}, new Double[]{0.5});
+		ScalarLinearFilter test = ScalarLinearFilter.makeScalarLinearFilter(new Double[]{-1.0}, new Double[]{0.5});
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.0, 0.1);
 		assertEquals(test.filter(2.0), 1.0, 0.001);

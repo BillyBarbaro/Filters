@@ -14,7 +14,7 @@ public class GainFilterTest {
     public ExpectedException filterNull = ExpectedException.none();
 	@Test
 	public void testNullFilter() {
-		GainFilter testFilter = new GainFilter(0.5);
+		GainFilter testFilter = GainFilter.makeGainFilter(0.5);
 
 		filterNull.expect(IllegalArgumentException.class);
 		filterNull.expectMessage("Cannot filter a null value");
@@ -26,17 +26,27 @@ public class GainFilterTest {
     public ExpectedException resetNull = ExpectedException.none();
 	@Test
 	public void testResetNull() {
-		GainFilter testFilter = new GainFilter(0.5);
+		GainFilter testFilter = GainFilter.makeGainFilter(0.5);
 
 		resetNull.expect(IllegalArgumentException.class);
 		resetNull.expectMessage("Cannot reset to a null value");
 
 		testFilter.reset(null);
 	}
+
+	@Rule
+    public ExpectedException constructorNull = ExpectedException.none();
+	@Test
+	public void testConstructorNull() {
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Parameter list cannot be null");
+
+		GainFilter testFilter = GainFilter.makeGainFilter(null);
+	}
 	
 	@Test
 	public void testFilterDecimal() {
-		GainFilter test = new GainFilter(0.5);
+		GainFilter test = GainFilter.makeGainFilter(0.5);
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.5, 0.1);
 		assertEquals(test.filter(2.0), 1.0, 0.001);
@@ -50,7 +60,7 @@ public class GainFilterTest {
 
 	@Test
 	public void testFilterOne() {
-		GainFilter testFilter = new GainFilter(1.0);
+		GainFilter testFilter = GainFilter.makeGainFilter(1.0);
 		assertEquals("Gain filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Gain filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
 		assertEquals("Gain filter fails for -1.0", testFilter.filter(-1.0), -1.0, 0.1);
@@ -64,7 +74,7 @@ public class GainFilterTest {
 
 	@Test
 	public void testFilterNegative() {
-		GainFilter test = new GainFilter(-1.0);
+		GainFilter test = GainFilter.makeGainFilter(-1.0);
 		assertEquals(test.filter(-1.0), 1.0, 0.1);
 		assertEquals(test.filter(1.0), -1.0, 0.1);
 		assertEquals(test.filter(2.0), -2.0, 0.001);
@@ -78,7 +88,7 @@ public class GainFilterTest {
 
 	@Test
 	public void testFilterDouble() {
-		GainFilter test = new GainFilter(2.0);
+		GainFilter test = GainFilter.makeGainFilter(2.0);
 		assertEquals(test.filter(-1.0), -2.0, 0.1);
 		assertEquals(test.filter(1.0), 2.0, 0.1);
 		assertEquals(test.filter(2.0), 4.0, 0.001);

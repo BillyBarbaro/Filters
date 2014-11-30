@@ -7,8 +7,14 @@ import java.util.LinkedList;
 public class AverageFilterN extends NScalarFilter<Double> {
 
 	/** Calls the constructor of the super class */
-	public AverageFilterN(int N) {
+	private AverageFilterN(int N) {
 		super(N);
+	}
+
+	public static AverageFilterN averageFilterWithN(int N) {
+		if (N < 1)
+			throw new IllegalArgumentException("A filter must have a size of at least 1");
+		return new AverageFilterN(N);
 	}
 	
 	/** Implementation of calculateFilterValue, takes the min value of the history

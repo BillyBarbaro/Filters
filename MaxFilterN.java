@@ -7,8 +7,14 @@ import java.util.LinkedList;
 public class MaxFilterN<T extends Comparable<T>> extends NScalarFilter<T> {
 
 	/** Calls the constructor of the super class */
-	public MaxFilterN(int N) {
+	private MaxFilterN(int N) {
 		super(N);
+	}
+
+	public static MaxFilterN maxFilterWithN(int N) {
+		if (N < 1)
+			throw new IllegalArgumentException("A filter must have a size of at least 1");
+		return new MaxFilterN(N);
 	}
 	
 	/** Implementation of calculateFilterValue, takes the max value of the history
