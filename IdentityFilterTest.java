@@ -63,4 +63,13 @@ public class IdentityFilterTest {
 		testFilter.reset(-22238492.4423);
 	}
 
+	@Test
+	public void testGeneric() {
+		IdentityFilter<String> testFilter = new IdentityFilter<String>();
+		assertEquals("Identity filter fails for boy", testFilter.filter("boy"), "boy");
+		assertEquals("Identity filter fails for girl", testFilter.filter("girl"), "girl");
+		assertEquals("Identity filter fails for ", testFilter.filter(""), "");
+		testFilter.reset("Cat");
+	}
+
 }

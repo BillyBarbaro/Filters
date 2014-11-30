@@ -106,4 +106,17 @@ public class MinFilterNTest {
 		assertEquals("Min N filter fails for 123847261.1124", testFilter.filter(123847261.1124), -22238492.4423, 0.1);
 		assertEquals("Min N filter fails for -22238492.4423", testFilter.filter(-32238492.4423), -32238492.4423, 0.1);
 	}
+
+	@Test
+	public void testGenerics() {
+		MinFilterN<String> testFilter = new MinFilterN<String>(2);
+		assertEquals("Max N filter fails for Bat", testFilter.filter("Bat"), "Bat");
+		assertEquals("Min N filter fails for Cat", testFilter.filter("Cat"), "Bat");
+		assertEquals("Min N filter fails for Apple", testFilter.filter("Apple"), "Apple");
+		assertEquals("Min N filter fails for Albatross", testFilter.filter("Albatross"), "Albatross");
+		assertEquals("Min N filter fails for Ape", testFilter.filter("Ape"), "Albatross");
+		assertEquals("Min N filter fails for Zebra", testFilter.filter("Zebra"), "Ape");
+		testFilter.reset("Mongoose");
+		assertEquals("Min N filter fails for Playtpus", testFilter.filter("Playtpus"), "Mongoose");
+	}
 }

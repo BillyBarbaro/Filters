@@ -4,26 +4,26 @@ import java.util.ArrayList;
   * @author Billy Barbaro
   */
 
-public class FilterCascade implements Filter<Double> {
+public class FilterCascade<T extends Comparable<T>> implements Filter<T> {
 
 	/** The filters to run an input value through */
-	public ArrayList<Filter<Double>> filters;
+	public ArrayList<Filter<T>> filters;
 
 	/** Sets the list of Filters to the input list
 	  * @param filters an ArrayList of filters to run the input through
 	  */
-	public FilterCascade(ArrayList<Filter<Double>> filters) {
+	public FilterCascade(ArrayList<Filter<T>> filters) {
 		this.filters = filters;
 	}
 
 	/** Runs the input through the cascade of filters
 	  * @param data	the data to be filtered
-	  * @return Double	the filtered data
+	  * @return T	the filtered data
 	  */
-	public final Double filter(Double data) {
+	public final T filter(T data) {
 		if (data == null)
 			throw new IllegalArgumentException("Cannot filter a null value");
-		for (Filter<Double> filter : filters) {
+		for (Filter<T> filter : filters) {
 			data = filter.filter(data);
 		}
 		return data;
@@ -32,7 +32,7 @@ public class FilterCascade implements Filter<Double> {
 	/** Resets all filters in the arraylist to the given value
 	  * @param resetValue	the resetvalue for the filter
 	  */
-	public final void reset(Double resetValue) {
+	public final void reset(T resetValue) {
 		if (resetValue == null)
 			throw new IllegalArgumentException("Cannot reset to a null value");
 		for (int i = 0; i < filters.size(); i++)
@@ -43,7 +43,7 @@ public class FilterCascade implements Filter<Double> {
 	  * @param index 	the index of the filter to be reset
 	  * @param resetValue	the resetvalue for the filter
 	  */
-	public final void resetFilterAtIndex(int index, Double resetValue) {
+	public final void resetFilterAtIndex(int index, T resetValue) {
 		if (resetValue == null)
 			throw new IllegalArgumentException("Cannot reset to a null value");
 		// Watch the indicies

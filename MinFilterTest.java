@@ -62,4 +62,14 @@ public class MinFilterTest {
 		assertEquals("Min filter fails for 14.0", testFilter.filter(0.0), -14.0, 0.1);
 		assertEquals("Min filter fails for 14.0", testFilter.filter(-14.1), -14.1, 0.05);
 	}
+
+	@Test
+	public void testGeneric() {
+		MinFilter<String> testFilter = new MinFilter<String>();
+		assertEquals("Min filter fails for boy", testFilter.filter("boy"), "boy");
+		assertEquals("Min filter fails for girl", testFilter.filter("girl"), "boy");
+		assertEquals("Min filter fails for ", testFilter.filter(""), "");
+		testFilter.reset("Cat");
+		assertEquals("Min filter fails for ", testFilter.filter("Dog"), "Cat");
+	}
 }

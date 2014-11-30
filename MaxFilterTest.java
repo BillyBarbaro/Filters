@@ -62,4 +62,14 @@ public class MaxFilterTest {
 		assertEquals("Max filter fails for 14.0", testFilter.filter(0.0), 14.0, 0.1);
 		assertEquals("Max filter fails for 14.0", testFilter.filter(14.1), 14.1, 0.05);
 	}
+
+	@Test
+	public void testGeneric() {
+		MaxFilter<String> testFilter = new MaxFilter<String>();
+		assertEquals("Max filter fails for boy", testFilter.filter("boy"), "boy");
+		assertEquals("Max filter fails for girl", testFilter.filter("girl"), "girl");
+		assertEquals("Max filter fails for ", testFilter.filter(""), "girl");
+		testFilter.reset("Cat");
+		assertEquals("Max filter fails for ", testFilter.filter("Apple"), "Cat");
+	}
 }
