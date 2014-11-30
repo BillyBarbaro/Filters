@@ -31,6 +31,7 @@ public class AverageFilter extends ScalarFilter {
 	  * @param resetValue	ignored
 	  */
 	public final void reset(Double resetValue) {
+		checkResetNull(resetValue);
 		reset();
 	}
 

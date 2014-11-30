@@ -22,6 +22,18 @@ public class MaxFilterNTest {
 		testFilter.filter(null);
 	}
 
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		MaxFilterN testFilter = new MaxFilterN(3);
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
+
 	@Test
 	public void testFilterSize3() {
 		MaxFilterN testFilter = new MaxFilterN(3);
@@ -84,7 +96,7 @@ public class MaxFilterNTest {
 		MaxFilterN testFilter = new MaxFilterN(3);
 		assertEquals("Max N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 1.0", testFilter.filter(1.0), 1.0, 0.1);
-		testFilter.reset(null);
+		testFilter.reset(0.0);
 		assertEquals("Max N filter fails for -1.0", testFilter.filter(-1.0), 0.0, 0.1);
 		assertEquals("Max N filter fails for 0.5", testFilter.filter(0.5), 0.5, 0.1);
 		assertEquals("Max N filter fails for -0.5", testFilter.filter(-0.5), 0.5, 0.1);

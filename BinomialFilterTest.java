@@ -21,6 +21,18 @@ public class BinomialFilterTest {
 
 		testFilter.filter(null);
 	}
+
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		BinomialFilter testFilter = new BinomialFilter(4);
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
 	
 	@Test
 	public void testFilter() {
@@ -28,7 +40,7 @@ public class BinomialFilterTest {
 		assertEquals(test.filter(-1.0), -1.0, 0.1);
 		assertEquals(test.filter(1.0), 3.0, 0.1);
 		assertEquals(test.filter(2.0), 15.0, 0.001);
-		test.reset(null);
+		test.reset(0.0);
 		assertEquals(test.filter(-1.0), -4.0, 0.001);
 		assertEquals(test.filter(3.0), -1.0, 0.001);
 		assertEquals(test.filter(1.0), 3.0, 0.001);

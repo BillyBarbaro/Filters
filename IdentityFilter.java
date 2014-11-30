@@ -22,6 +22,7 @@ public class IdentityFilter extends ScalarFilter {
 	  * @param resetValue	The value for the filter to be reset to
 	  */
 	public final void reset(Double resetValue) {
+		checkResetNull(resetValue);
 		return;
 	}
 }

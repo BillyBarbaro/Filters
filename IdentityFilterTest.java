@@ -21,6 +21,18 @@ public class IdentityFilterTest {
 
 		testFilter.filter(null);
 	}
+
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		IdentityFilter testFilter = new IdentityFilter();
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
 	
 	@Test
 	public void testFilter() {
@@ -40,7 +52,7 @@ public class IdentityFilterTest {
 	public void testReset() {
 		IdentityFilter testFilter = new IdentityFilter();
 		testFilter.reset(0.0);
-		testFilter.reset(null);
+		testFilter.reset(0.0);
 		testFilter.reset(1.0);
 		testFilter.reset(-1.0);
 		testFilter.reset(0.5);

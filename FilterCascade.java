@@ -33,7 +33,8 @@ public class FilterCascade implements Filter<Double> {
 	  * @param resetValue	the resetvalue for the filter
 	  */
 	public final void reset(Double resetValue) {
-		resetValue = (resetValue == null) ? 0.0 : resetValue;
+		if (resetValue == null)
+			throw new IllegalArgumentException("Cannot reset to a null value");
 		for (int i = 0; i < filters.size(); i++)
 			resetFilterAtIndex(i, resetValue);
 	}
@@ -43,7 +44,8 @@ public class FilterCascade implements Filter<Double> {
 	  * @param resetValue	the resetvalue for the filter
 	  */
 	public final void resetFilterAtIndex(int index, Double resetValue) {
-		resetValue = (resetValue == null) ? 0.0 : resetValue;
+		if (resetValue == null)
+			throw new IllegalArgumentException("Cannot reset to a null value");
 		// Watch the indicies
 		if (index < 0)
 			index = 0;

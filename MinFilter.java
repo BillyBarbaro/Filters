@@ -25,7 +25,7 @@ public class MinFilter extends ExtremeFilter {
 	  * @param resetValue	the new min for the filter
 	  */
 	public final void reset(Double resetValue) {
-		resetValue = replaceResetNull(resetValue);
+		checkResetNull(resetValue);
 		if (output == null)
 			output = new Double(resetValue);
 		else

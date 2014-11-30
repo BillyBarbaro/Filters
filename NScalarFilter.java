@@ -52,7 +52,7 @@ public abstract class NScalarFilter extends ScalarFilter {
 	  * @param resetValue 	the value to be written to the empty history
 	  */
 	public final void reset(Double resetValue) {
-		resetValue = replaceResetNull(resetValue);
+		checkResetNull(resetValue);
 		inputs = new Double[inputs.length];
 		inputs[0] = resetValue;
 		writeIndex = 1;

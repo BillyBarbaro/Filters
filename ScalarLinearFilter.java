@@ -116,7 +116,7 @@ public class ScalarLinearFilter extends ScalarFilter {
 	  * @param resetValue 	the value to calculate the reset values for the input/output histories
 	  */
 	public final void reset(Double resetValue) {
-		resetValue = replaceResetNull(resetValue);
+		checkResetNull(resetValue);
 		// Sets the input history to the resetValue
 		for (int i = 0; i < inputHistory.length; i++)
 			inputHistory[i] = resetValue;

@@ -21,6 +21,18 @@ public class GainFilterTest {
 
 		testFilter.filter(null);
 	}
+
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		GainFilter testFilter = new GainFilter(0.5);
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
 	
 	@Test
 	public void testFilterDecimal() {
@@ -28,7 +40,7 @@ public class GainFilterTest {
 		assertEquals(test.filter(-1.0), -0.5, 0.1);
 		assertEquals(test.filter(1.0), 0.5, 0.1);
 		assertEquals(test.filter(2.0), 1.0, 0.001);
-		test.reset(null);
+		test.reset(0.0);
 		assertEquals(test.filter(-1.0), -0.5, 0.001);
 		assertEquals(test.filter(3.0), 1.5, 0.001);
 		assertEquals(test.filter(1.0), 0.5, 0.001);

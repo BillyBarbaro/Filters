@@ -22,6 +22,18 @@ public class AverageFilterNTest {
 		testFilter.filter(null);
 	}
 
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		AverageFilterN testFilter = new AverageFilterN(3);
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
+
 	@Test
 	public void testFilterSize3() {
 		AverageFilterN testFilter = new AverageFilterN(3);
@@ -75,7 +87,7 @@ public class AverageFilterNTest {
 		AverageFilterN testFilter = new AverageFilterN(3);
 		assertEquals("Min N filter fails for 0.0", testFilter.filter(0.0), 0.0, 0.1);
 		assertEquals("Min N filter fails for 1.0", testFilter.filter(1.0), 0.5, 0.1);
-		testFilter.reset(null);
+		testFilter.reset(0.0);
 		assertEquals("Min N filter fails for -1.0", testFilter.filter(-1.0), -0.5, 0.1);
 		assertEquals("Min N filter fails for 0.5", testFilter.filter(0.5), -0.166667, 0.001);
 		assertEquals("Min N filter fails for -0.5", testFilter.filter(-0.5), -0.333333, 0.001);

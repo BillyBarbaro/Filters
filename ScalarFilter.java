@@ -15,7 +15,8 @@ public abstract class ScalarFilter implements Filter<Double> {
 			throw new IllegalArgumentException("Cannot filter a null value");
 	}
 
-	protected Double replaceResetNull(Double resetValue) {
-		return (resetValue == null) ? 0.0 : resetValue;
+	protected void checkResetNull(Double resetValue) {
+		if (resetValue == null)
+			throw new IllegalArgumentException("Cannot reset to a null value");
 	}
 }

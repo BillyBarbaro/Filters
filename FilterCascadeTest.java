@@ -26,6 +26,21 @@ public class FilterCascadeTest {
 		testFilter.filter(null);
 	}
 
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
+		filters.add(new MaxFilterN(2));
+		filters.add(new MinFilterN(3));
+		FilterCascade testFilter = new FilterCascade(filters);
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
+
 	@Test
 	public void testCascadeFromSpec() {
 		ArrayList<Filter<Double>> filters = new ArrayList<Filter<Double>>();
@@ -37,7 +52,7 @@ public class FilterCascadeTest {
 		assertEquals(test.filter(1.0), -1.0, 0.001);
 		assertEquals(test.filter(2.0), 2.0, 0.001);
 		assertEquals(test.filter(1.0), 2.0, 0.001);
-		test.reset(null);
+		test.reset(0.0);
 		assertEquals(test.filter(-1.0), 0.0, 0.1);
 		assertEquals(test.filter(3.0), 0.0, 0.1);
 		assertEquals(test.filter(1.0), 0.0, 0.001);
@@ -54,7 +69,7 @@ public class FilterCascadeTest {
 		assertEquals(test.filter(-1.0), -1.0, 0.1);
 		assertEquals(test.filter(1.0), 0.1, 0.1);
 		assertEquals(test.filter(2.0), 2.9, 0.1);
-		test.resetFilterAtIndex(0, null);
+		test.resetFilterAtIndex(0, 0.0);
 		assertEquals(test.filter(-1.0), -1.0, 0.001);
 		assertEquals(test.filter(3.0), 2.1, 0.001);
 		assertEquals(test.filter(1.0), 3.79, 0.001);

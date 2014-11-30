@@ -22,6 +22,18 @@ public class MinFilterTest {
 		testFilter.filter(null);
 	}
 
+	@Rule
+    public ExpectedException resetNull = ExpectedException.none();
+	@Test
+	public void testResetNull() {
+		MinFilter testFilter = new MinFilter();
+
+		resetNull.expect(IllegalArgumentException.class);
+		resetNull.expectMessage("Cannot reset to a null value");
+
+		testFilter.reset(null);
+	}
+
 	@Test
 	public void testFilter() {
 		MinFilter testFilter = new MinFilter();
@@ -41,7 +53,7 @@ public class MinFilterTest {
 	@Test
 	public void testReset() {
 		MinFilter testFilter = new MinFilter();
-		testFilter.reset(null);
+		testFilter.reset(0.0);
 		assertEquals("Min filter fails for reset of 0.0", testFilter.filter(1.0), 0.0, 0.1);
 		assertEquals("Min filter fails for 0.0", testFilter.filter(-1.0), -1.0, 0.1);
 		testFilter.reset(14.0);
