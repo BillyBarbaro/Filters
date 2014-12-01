@@ -60,7 +60,7 @@ public abstract class NScalarFilter<T extends Comparable<T>> extends ScalarFilte
 	}
 
 	/** Getter for the input history
-	  * @return LinkedList<T> 	the history of inputs
+	  * @return LinkedList 	the history of inputs
 	  */
 	protected final LinkedList<T> getInputHistory() {
 		return inputs;

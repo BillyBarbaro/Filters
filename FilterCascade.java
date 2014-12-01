@@ -30,7 +30,7 @@ public class FilterCascade<T extends Comparable<T>> implements Filter<T> {
 
 		/** Adds a filter to the builder
 		  * @param filter 	the next filter in the cascade
-		  * @return	FilterCascadeBuilder<Q> 	the instance of the builder so calls can be chained
+		  * @return	FilterCascadeBuilder 	the instance of the builder so calls can be chained
 		  */
 		public FilterCascadeBuilder<Q> addFilter(Filter<Q> filter) {
 			if (filter == null)
@@ -41,7 +41,7 @@ public class FilterCascade<T extends Comparable<T>> implements Filter<T> {
 		}
 
 		/** Calls the construtor for a FilterCascade with the current filter list
-		  * @return FilterCascade<Q> 	an instance of FilterCascade with the filters added to the builder
+		  * @return FilterCascade 	an instance of FilterCascade with the filters added to the builder
 		  */
 		public FilterCascade<Q> build() {
 			return new FilterCascade<Q>(filters);
@@ -96,7 +96,7 @@ public class FilterCascade<T extends Comparable<T>> implements Filter<T> {
 			index = 0;
 		if (index >= filters.size())
 			index = filters.size() - 1;
-		
+
 		filters.get(index).reset(resetValue);
 	}
 }

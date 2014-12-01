@@ -14,7 +14,7 @@ public class GainFilter implements Filter<Double> {
 
 	/** Static factory for GainFilter.  The argument must not be null
 	  * @param multiplier	the gain for the input values
-	  * @retrun GainFilter 	an instance of GainFilter with the requested gain
+	  * @return GainFilter 	an instance of GainFilter with the requested gain
 	  * @throws IllegalArgumentException	thrown when the double is null
 	  */
 	public static GainFilter makeGainFilter(Double multiplier) {

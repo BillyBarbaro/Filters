@@ -30,7 +30,7 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 	/** Static factory for ScalarLinearFilter.  Both param arrays must not be null
 	  * @param aParams 	an array of Doubles representing the a coefficients
 	  * @param bParams	an array of Doubles representign the b coefficients
-	  * @retrun ScalarLinearFilter 	an instance of ScalarLinear Filter with the requested parameters
+	  * @return ScalarLinearFilter 	an instance of ScalarLinear Filter with the requested parameters
 	  * @throws IllegalArgumentException	thrown when either array is null
 	  */
 	public static ScalarLinearFilter makeScalarLinearFilter(Double[] aParams, Double[] bParams) {
@@ -147,7 +147,7 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 	  */
 	public final void reset(Double resetValue) {
 		checkResetNull(resetValue);
-		
+
 		// Sets the input history to the resetValue
 		for (int i = 0; i < inputHistory.length; i++)
 			inputHistory[i] = resetValue;

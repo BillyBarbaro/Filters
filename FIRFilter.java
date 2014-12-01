@@ -14,7 +14,7 @@ public class FIRFilter implements Filter<Double> {
 
 	/** Static factory for FIRFilter.  The param array must not be null
 	  * @param bParams	an array of Doubles representign the b coefficients
-	  * @retrun FIRFilter 	an instance of FIRFilter with the requested parameters
+	  * @return FIRFilter 	an instance of FIRFilter with the requested parameters
 	  * @throws IllegalArgumentException	thrown when the array is null
 	  */
 	public static FIRFilter makeFIRFilter(Double[] bParams) {

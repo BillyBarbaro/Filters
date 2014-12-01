@@ -47,6 +47,10 @@ test:
 	javac -cp junit-4.10.jar:. $(TESTS)
 	java -cp junit-4.10.jar:. org.junit.runner.JUnitCore $(TESTS:.java=)
 
+doc:
+	javadoc -d ./javadoc -cp junit-4.10.jar:. $(CLASSES)
+
 clean:
 	$(RM) *.class
 	$(RM) *.java~
+	$(RM) -r ./javadoc

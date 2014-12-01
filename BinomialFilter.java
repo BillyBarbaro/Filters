@@ -35,8 +35,8 @@ public class BinomialFilter implements Filter<Double> {
 	}
 
 	/** Static factory for BinomialFilter.
-	  * @param bParams	an array of Doubles representign the b coefficients
-	  * @retrun BinomailFilter 	an instance of BinomailFilter with the requested parameters
+	  * @param N	the maximum number of values we are to choose from
+	  * @return BinomailFilter 	an instance of BinomailFilter with the requested parameters
 	  */
 	public static BinomialFilter makeBinomialFilter(int N) {
 		return new BinomialFilter(N);

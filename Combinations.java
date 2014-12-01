@@ -6,7 +6,7 @@ public class Combinations {
 	
 	/** Creates a table of N choose K values
 	  * @param N 	the Max things to choose from
-	  * @param k 	the Max number of things to be chosen
+	  * @param K 	the Max number of things to be chosen
 	  * @return	int[][]	table of combinations
 	  */
 	public static int[][] nChoosek(int N, int K) {
