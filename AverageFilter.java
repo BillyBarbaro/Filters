@@ -1,6 +1,4 @@
-/** Implementation of an Average Filter
-  * @author Billy Barbaro
-  */
+/** Implementation of an Average Filter */
 
 public class AverageFilter extends ScalarFilter<Double> {
 	
@@ -17,6 +15,7 @@ public class AverageFilter extends ScalarFilter<Double> {
 	/** Takes the average of all values input since the last reset
 	  * @param data	The next value fed to the filter
 	  * @return Double	an average of all values input to the filter thus far
+	  * @throws IllegalArgumentException	if data is null
 	  */
 	public final Double filter(Double data) {
 		checkNullFilterValue(data);
@@ -29,6 +28,7 @@ public class AverageFilter extends ScalarFilter<Double> {
 
 	/** A reset value is not valid in this case, so all resets are sent to the generic reset method
 	  * @param resetValue	ignored
+	  * @throws IllegalArgumentException	if resetValue is null
 	  */
 	public final void reset(Double resetValue) {
 		checkResetNull(resetValue);

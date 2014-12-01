@@ -1,5 +1,5 @@
 /** Implementation of an Max Filter
-  * @author Billy Barbaro
+  * @param T	the type of input for the filter
   */
 
 public class MaxFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
@@ -10,9 +10,11 @@ public class MaxFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
 	/** Given data, returns the largest value it's seen since the last reset
 	  * @param data	The input to the filter
 	  * @return T	The largest value fed to the filter since the last reset
+	  * @throws IllegalArgumentException	if data is null
 	  */
 	public final T filter(T data) {
 		checkNullFilterValue(data);
+		
 		if (output == null)
 			output = data;
 
@@ -23,6 +25,7 @@ public class MaxFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
 
 	/** Sets the filter's max to the reset value
 	  * @param resetValue	the new max for the filter
+	  * @throws IllegalArgumentException	if resetValue is null
 	  */
 	public final void reset(T resetValue) {
 		checkResetNull(resetValue);

@@ -1,19 +1,25 @@
-/** Implementation of a Average Filter N
-  * @author Billy Barbaro
-  */
+/** Implementation of a Average Filter N */
 
 import java.util.LinkedList;
 
 public class AverageFilterN extends NScalarFilter<Double> {
 
-	/** Calls the constructor of the super class */
+	/** Calls the constructor of the super class
+	  * @param N	the number of past values the filter stores
+	  */
 	private AverageFilterN(int N) {
 		super(N);
 	}
 
+	/** Static factory to create a AverageFilterN
+	  * @param N 	the number of past values the filter stores
+	  * @return AverageFilterN 	an instance of AverageFilterN with specified size
+	  * @throws IllegalArgumentException 	thrown if n is less than 1
+	  */
 	public static AverageFilterN averageFilterWithN(int N) {
 		if (N < 1)
 			throw new IllegalArgumentException("A filter must have a size of at least 1");
+
 		return new AverageFilterN(N);
 	}
 	
@@ -26,8 +32,7 @@ public class AverageFilterN extends NScalarFilter<Double> {
 		// Keeps the running total of all entries in the list
 		Double runningTotal = 0.0;
 		for (Double d : super.getInputHistory()) {
-			if (d != null)
-				runningTotal += d;
+			runningTotal += d;
 		}
 		
 		// Divides them out to give the average

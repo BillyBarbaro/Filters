@@ -12,11 +12,15 @@ public class Combinations {
 	public static int[][] nChoosek(int N, int K) {
 		int binomial[][] = new int[N+1][K+1];
 
+		// If choosing from N=0, always 0 options
 		for (int k = 1; k <= K; k++)
 			binomial[0][k] = 0;
+
+		// If choosing k=0 items, always 0
 		for (int n = 0; n <= N; n++)
 			binomial[n][0] = 1;
 
+		// Loops through creating a table by a definition of combinations
 		for (int n = 1; n <= N; n++)
 		   for (int k = 1; k <= K; k++)
 		      binomial[n][k] = binomial[n-1][k-1] + binomial[n-1][k];

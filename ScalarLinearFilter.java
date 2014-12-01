@@ -1,6 +1,4 @@
-/** Implementation of a Scalar Linear Filter
-  * @author Billy Barbaro
-  */
+/** Implementation of a Scalar Linear Filter */
 
 public class ScalarLinearFilter extends ScalarFilter<Double> {
 	
@@ -17,7 +15,7 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 	/** Current write index for outputs */
 	private int outputWriteIndex;
 
-	/** Constructor taking the arrays for parameters for the filter
+	/** Constructor taking the arrays for parameters for the filter.  Called through the factory
 	  * @param aParams	coefficients for the outputs
 	  * @param bParams	coefficients for the inputs
 	  */
@@ -29,6 +27,12 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 		this.outputHistory = new Double[aParams.length];
 	}
 
+	/** Static factory for ScalarLinearFilter.  Both param arrays must not be null
+	  * @param aParams 	an array of Doubles representing the a coefficients
+	  * @param bParams	an array of Doubles representign the b coefficients
+	  * @retrun ScalarLinearFilter 	an instance of ScalarLinear Filter with the requested parameters
+	  * @throws IllegalArgumentException	thrown when either array is null
+	  */
 	public static ScalarLinearFilter makeScalarLinearFilter(Double[] aParams, Double[] bParams) {
 		if (aParams == null || bParams == null)
 			throw new IllegalArgumentException("Parameter list cannot be null");
@@ -68,28 +72,46 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 		}
 	}
 
+	/** Calculates the sum of the input history and their corresponding coefficients
+	  * @return Double 	the sum of the inputs * coefficients
+	  */
+	private Double calculateInputSum() {
+		Double inputSum = 0.0;
+
+		for (int i = 0; i < inputHistory.length; i++) {
+			int currentIndex = (inputWriteIndex + i) % inputHistory.length;
+			if (inputHistory[currentIndex] != null)
+				inputSum += bParams[currentIndex] * inputHistory[currentIndex];
+		}
+
+		return inputSum;
+	}
+
+	/** Iterates through the outputs and their corresponding coefficients
+	  * @return Double 	the sum of the inputs * coefficients
+	  */
+	private Double calculateOutputSum() {
+		Double outputSum = 0.0;
+
+		for (int i = 0; i < outputHistory.length; i++) {
+			int currentIndex = (outputWriteIndex + i) % outputHistory.length;
+			if (outputHistory[currentIndex] != null)
+				outputSum += aParams[currentIndex] * outputHistory[currentIndex];
+		}
+		return outputSum;
+	}
+
 	/** Filters the given data
 	  * @param data	the data to be run through the filter
 	  * @return Double	the filtered data
+	  * @throws IllegalArgumentException	if data is null
 	  */
 	public final Double filter(Double data) {
 		checkNullFilterValue(data);
 		writeInput(data);
 
-		// Iterates through the inputs and their corresponding coefficients
-		Double newOutput = 0.0;
-		for (int i = 0; i < inputHistory.length; i++) {
-			int currentIndex = (inputWriteIndex + i) % inputHistory.length;
-			if (inputHistory[currentIndex] != null)
-				newOutput += bParams[currentIndex] * inputHistory[currentIndex];
-		}
-
-		// Iterates through the outputs and their corresponding coefficients
-		for (int i = 0; i < outputHistory.length; i++) {
-			int currentIndex = (outputWriteIndex + i) % outputHistory.length;
-			if (outputHistory[currentIndex] != null)
-				newOutput -= aParams[currentIndex] * outputHistory[currentIndex];
-		}
+		// Output according to the spec
+		Double newOutput = calculateInputSum() - calculateOutputSum();
 
 		writeOutput(newOutput);
 
@@ -116,14 +138,16 @@ public class ScalarLinearFilter extends ScalarFilter<Double> {
 
 		// Calculates the return value per the formula in the spec.
 		// If aSum is 0, we cannot divide by 0, so we just reseet to 0
-		return aSum == -1 ? 0 : resetValue * (bSum / (aSum + 1));
+		return (aSum == -1) ? 0 : resetValue * (bSum / (aSum + 1));
 	}
 
 	/** Resets the filter
 	  * @param resetValue 	the value to calculate the reset values for the input/output histories
+	  * @throws IllegalArgumentException	if resetValue is null
 	  */
 	public final void reset(Double resetValue) {
 		checkResetNull(resetValue);
+		
 		// Sets the input history to the resetValue
 		for (int i = 0; i < inputHistory.length; i++)
 			inputHistory[i] = resetValue;

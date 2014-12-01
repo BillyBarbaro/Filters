@@ -1,5 +1,5 @@
 /** Implementation of a Min Filter
-  * @author Billy Barbaro
+  * @param T	the type of input for the filter
   */
 
 public class MinFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
@@ -9,10 +9,12 @@ public class MinFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
 
 	/** Given data, returns the smallest value it's seen since the last reset
 	  * @param data	The input to the filter
-	  * @return Double	The smallest value fed to the filter since the last reset
+	  * @return T	The smallest value fed to the filter since the last reset
+	  * @throws IllegalArgumentException	if data is null
 	  */
 	public final T filter(T data) {
 		checkNullFilterValue(data);
+
 		if (output == null)
 			output = data;
 
@@ -23,6 +25,7 @@ public class MinFilter<T extends Comparable<T>> extends ExtremeFilter<T> {
 
 	/** Sets the filter's min to the reset value
 	  * @param resetValue	the new min for the filter
+	  * @throws IllegalArgumentException	if resetValue is null
 	  */
 	public final void reset(T resetValue) {
 		checkResetNull(resetValue);
