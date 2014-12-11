@@ -1,6 +1,4 @@
-/** A class providing a mehtod to calculate Combinations
-  * @author Billy Barbaro
-  */
+/** A class providing a mehtod to calculate Combinations */
 
 public class Combinations {
 	

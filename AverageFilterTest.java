@@ -4,9 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/** Test Bench for Average Filter
-  * @author Billy Barbaro
-  */
+/** Test Bench for Average Filter */
 
 public class AverageFilterTest {
 

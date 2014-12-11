@@ -28,8 +28,10 @@ public abstract class NScalarFilter<T extends Comparable<T>> extends ScalarFilte
 	  */
 	private final void addData(T data) {
 		inputs.add(data);
+
 		if (inputs.size() > maxSize)
 			inputs.pollFirst();
+		
 		assert(maxSize <= inputs.size());
 	}
 

@@ -4,9 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/** Test Bench for FIR Filter
-  * @author Billy Barbaro
-  */
+/** Test Bench for FIR Filter */
 
 public class FIRFilterTest {
 

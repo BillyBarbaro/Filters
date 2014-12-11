@@ -1,4 +1,4 @@
-#Billy Barbaro wxb107@case.edu
+#Billy Barbaro
 
 JFLAGS = -g
 JC = javac

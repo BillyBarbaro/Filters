@@ -4,9 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/** Test Bench for Min Filter N
-  * @author Billy Barbaro
-  */
+/** Test Bench for Min Filter N */
 
 public class MinFilterNTest {
 

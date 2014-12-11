@@ -4,9 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/** Test Bench for Binomial Filter
-  * @author Billy Barbaro
-  */
+/** Test Bench for Binomial Filter */
 
 public class BinomialFilterTest {
 
